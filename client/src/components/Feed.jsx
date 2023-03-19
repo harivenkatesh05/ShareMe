@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { client } from '../client.js';
 import { feedQuery, searchQuery } from '../utils/data.js';
+import MasonaryLayout from './MasonaryLayout.jsx';
 import Spinner from './Spinner.jsx';
 
 function Feed() {
@@ -16,7 +17,6 @@ function Feed() {
 			const query = searchQuery(categoryId)
 
 			client.fetch(query).then((data) => {
-				console.log(data)
 				setPins(data)
 				setLoading(false);
 			})
@@ -24,17 +24,19 @@ function Feed() {
 		else {
 			const query = feedQuery()
 			client.fetch(query).then((data) => {
-				console.log(data)
 				setPins(data)	
 				setLoading(false);
 			})
 		}
 	}, [categoryId])
 
-	if(loading) return (<Spinner message={`We are adding new ideas to your feed!`}/>)
+	const content = categoryId || 'new'
+	if(loading) return (<Spinner message={`We are adding ${content} ideas to your feed!`}/>)
 
 	return (
-		<div></div>
+		<div>
+			{pins && <MasonaryLayout pins={pins}/>}
+		</div>
 	)
 }
 

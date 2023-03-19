@@ -11,7 +11,7 @@ function CreatePin({user}) {
 	const [imageAsset, setImageAsset] = useState(null);
 	const [title, setTitle] = useState('');
 	const [about, setAbout] = useState('');
-	const [description, setDescription] = useState('');
+	const [destination, setDestination] = useState('');
 	const [category, setCategory] = useState('')
 	const [errorIndicator, setErrorIndicator] = useState(false);
 
@@ -38,12 +38,12 @@ function CreatePin({user}) {
 	}
 
 	const savePin = () => {
-		if(title && about && description && imageAsset?._id && category) {
+		if(title && about && destination && imageAsset?._id && category) {
 			const doc = {
 				_type: 'pin',
 				title,
 				about,
-				description,
+				destination,
 				image: {
 					_type: 'image',
 					assets: {
@@ -60,7 +60,8 @@ function CreatePin({user}) {
 			}
 
 			client.create(doc)
-				.then(() => {
+				.then((document) => {
+					console.log(document);
 					navigate('/');
 				})
 		}
@@ -94,7 +95,7 @@ function CreatePin({user}) {
 									type="file"
 									className='w-0 h-0'
 									name="upload-image"
-									accept=".gif,.jpg,.png,.svg"
+									accept="image/*"
 									onChange={uploadImage}
 								/>
 							</label>
@@ -129,9 +130,9 @@ function CreatePin({user}) {
 				/>
 				<input
 					type="text"
-					value={description}
-					onChange={(e) => setDescription(e.target.value)}
-					placeholder="Add a description here"
+					value={destination}
+					onChange={(e) => setDestination(e.target.value)}
+					placeholder="Add a destination here"
 					className='outline-none text-base sm:text-lg border-b-2 p-2 border-gray-200'
 				/>
 				<div>

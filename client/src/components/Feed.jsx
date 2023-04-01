@@ -33,9 +33,13 @@ function Feed() {
 	const content = categoryId || 'new'
 	if(loading) return (<Spinner message={`We are adding ${content} ideas to your feed!`}/>)
 
+	console.log("ada", pins)
 	return (
 		<div>
-			{pins && <MasonaryLayout pins={pins}/>}
+			{pins && !!pins.length ? <MasonaryLayout pins={pins}/> : 
+				<p className='p-5 py-10 text-bold text-gray-500 w-full justify-center items-center flex'>
+					No Pins are in this category. Sorry!!!
+				</p>}
 		</div>
 	)
 }

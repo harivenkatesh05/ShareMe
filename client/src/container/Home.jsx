@@ -51,7 +51,7 @@ function Home() {
 			)}
 			<div className='h-screen overflow-y-scroll pb-2 flex-1'>
 				<Routes>
-					<Route path="/user-profile/:useId" element={<UserProfile></UserProfile>}></Route>
+					<Route path="/user-profile/:userId" element={<UserProfile></UserProfile>}></Route>
 					<Route path="/*" element={<Pins user={user && user}></Pins>}></Route>
 				</Routes>
 			</div>
